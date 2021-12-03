@@ -1,6 +1,5 @@
-import createDefaultBoard from "./helpers.js";
+import createBoard, { useInterval, gol } from "./helpers.js";
 import React, { useState } from "react";
-
 const styles = {
   board: {
     display: "flex",
@@ -13,6 +12,7 @@ const styles = {
     padding: "1px",
     minWidth: "25px",
     minHeight: "25px",
+    userSelect: "none",
   },
 };
 
@@ -23,7 +23,7 @@ const Square = ({ x, y, activated, setBoard }) => {
   );
   const handleClick = (e) => {
     e.preventDefault();
-    setBoard(createDefaultBoard());
+    setBoard(createBoard());
   };
   return (
     <div onClick={handleClick} style={{ ...styles.square }}>
@@ -33,7 +33,17 @@ const Square = ({ x, y, activated, setBoard }) => {
 };
 
 const LifeBoard = () => {
-  const [board, setBoard] = useState(createDefaultBoard(10));
+  const [board, setBoard] = useState(createBoard(10));
+
+  // update board with random activations
+  // useInterval(() => {
+  //   setBoard(createBoard());
+  // }, 1000);
+
+  // update board with GOL algo
+  useInterval(() => {
+    setBoard(gol(board));
+  }, 1000);
 
   return (
     <div style={{ ...styles.board }}>
