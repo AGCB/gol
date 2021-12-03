@@ -8,18 +8,25 @@ const styles = {
   },
   row: { display: "flex" },
   square: {
-    border: "1px solid cyan",
-    padding: "1px",
-    minWidth: "25px",
-    minHeight: "25px",
+    border: "1px dotted cyan",
+    minWidth: "4px",
+    minHeight: "4px",
     userSelect: "none",
   },
 };
 
 const Square = ({ x, y, activated, setBoard }) => {
-  const activatedSquare = <div style={{ backgroundColor: "cyan" }}>__</div>;
+  const activatedSquare = (
+    <div style={{ backgroundColor: "cyan", paddingTop: "0px", color: "cyan" }}>
+      _
+    </div>
+  );
   const nonActivatedSquare = (
-    <div style={{ backgroundColor: "black" }}>()()</div>
+    <div
+      style={{ backgroundColor: "black", paddingTop: "0px", color: "black" }}
+    >
+      _
+    </div>
   );
   const handleClick = (e) => {
     e.preventDefault();
@@ -33,7 +40,7 @@ const Square = ({ x, y, activated, setBoard }) => {
 };
 
 const LifeBoard = () => {
-  const [board, setBoard] = useState(createBoard(10));
+  const [board, setBoard] = useState(createBoard());
 
   // update board with random activations
   // useInterval(() => {
@@ -43,7 +50,7 @@ const LifeBoard = () => {
   // update board with GOL algo
   useInterval(() => {
     setBoard(gol(board));
-  }, 1000);
+  }, 20);
 
   return (
     <div style={{ ...styles.board }}>
